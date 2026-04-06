@@ -30,7 +30,28 @@ Party mode accepts optional arguments when invoked:
 
 4. **Load project context** — search for `**/project-context.md`. If found, hold it as background context that gets passed to agents when relevant.
 
-5. **Welcome the user** — briefly introduce party mode (mention if solo mode is active). Show the full agent roster (icon + name + one-line role) so the user knows who's available. Ask what they'd like to discuss.
+5. **Investigation Gate** — search for `{planning_artifacts}/INVESTIGATION.md`. Also try `**/INVESTIGATION.md` as a fallback.
+
+   **If found:**
+   - Load its full contents as `{investigation_data}`
+   - Display to user:
+     > "📋 **Investigation file found and loaded.** All agents will ground their analysis in this evidence base. Claims not traceable to the investigation will be labelled **[ASSUMPTION]**."
+   - Add the following to the subagent prompt template under a new section `## Evidence Base`:
+     > "The following is the complete investigation of the system under discussion. All factual claims you make must be traceable to a specific item in this evidence base. If a claim is not supported here, prefix it with **[ASSUMPTION]** and state what evidence would be needed to confirm it. Do not present assumptions as findings."
+     > {investigation_data — summarised to under 600 words if over 1000 words}
+
+   **If NOT found:**
+   - Display this warning and wait for user response before proceeding:
+     > ⚠️ **No INVESTIGATION.md found.**
+     > For Salesforce analysis or development tasks, running Party Mode without prior investigation risks incomplete and inconsistent outcomes — each agent will scope their own context independently and may miss dependencies.
+     > **Recommended:** Ask Mary to run **[SI] Salesforce Investigation** first. This produces INVESTIGATION.md which all agents will share as a common evidence base.
+     > **Options:**
+     > 1. Exit now and run Salesforce Investigation first *(recommended for Salesforce tasks)*
+     > 2. Proceed without investigation file *(agent outputs will be based on unverified scope)*
+   - If user selects **1**: exit gracefully, remind user to invoke Mary and run [SI].
+   - If user selects **2**: proceed, but inject this into every subagent prompt: "Note: No investigation file is present for this session. Flag any claim that relies on assumed system knowledge as **[ASSUMPTION]** and identify what evidence would be needed to verify it."
+
+6. **Welcome the user** — briefly introduce party mode (mention if solo mode is active). Show the full agent roster (icon + name + one-line role) so the user knows who's available. Ask what they'd like to discuss.
 
 ## The Core Loop
 

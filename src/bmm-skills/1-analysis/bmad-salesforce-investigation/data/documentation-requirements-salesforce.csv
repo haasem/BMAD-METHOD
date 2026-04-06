@@ -1,0 +1,41 @@
+category,requirement,depth,mandatory
+Jira,Full ticket hierarchy to leaf level — retrieve all child tickets recursively until childCount=0 at every branch,exhaustive,true
+Jira,All linked tickets across all issue types (blocks/is blocked by/relates to/duplicates),exhaustive,true
+Jira,All referenced components labels epics and sprints,full,true
+Jira,All comments referencing technical decisions or scope changes,full,true
+Apex,All triggers on in-scope objects — note before/after and DML event,exhaustive,true
+Apex,All handler classes and service classes called by those triggers — follow full call chain,exhaustive,true
+Apex,All Queueable/Batch/Schedulable jobs that touch in-scope objects or fields,full,true
+Apex,All @InvocableMethod and @AuraEnabled methods on in-scope objects,full,true
+Apex,All callouts (HTTP/SOAP) initiated from in-scope trigger or handler chain,full,true
+Flows,All Flows and Process Builders with record-triggered entry conditions on in-scope objects,exhaustive,true
+Flows,All fault paths and error handlers within each identified Flow,full,true
+Flows,All Subflows called from identified Flows — follow recursively,exhaustive,true
+Flows,All Screen Flows referencing in-scope objects,full,false
+CPQ,All Price Rules referencing in-scope objects or fields — include conditions and actions,exhaustive,true
+CPQ,All Product Rules and their Filter/Action conditions,exhaustive,true
+CPQ,All Quote Calculator Plugin (QCP) methods that read or write in-scope fields,full,true
+CPQ,Full pricing waterfall for affected product families (list/discount/cost/markup),full,true
+CPQ,All Configuration Attributes on affected Product Options,full,true
+CPQ,All Summary Variables referencing in-scope objects,full,true
+Validation Rules,All Validation Rules on in-scope objects — capture full formula logic,exhaustive,true
+Validation Rules,All cross-object references within those Validation Rule formulas,full,true
+Validation Rules,All Validation Rules on parent or child objects that reference in-scope fields,full,true
+Integrations,All inbound field mappings for in-scope objects (source field → SF field),exhaustive,true
+Integrations,All outbound field mappings for in-scope objects (SF field → target field),exhaustive,true
+Integrations,All Platform Events published or subscribed on in-scope objects,full,true
+Integrations,All Change Data Capture configurations for in-scope objects,full,true
+Integrations,All External IDs used for upsert operations on in-scope objects,full,true
+Security,All Profiles with object-level access on in-scope objects,full,true
+Security,All Profiles with Field-Level Security on in-scope fields,full,true
+Security,All Permission Sets and Permission Set Groups granting access to in-scope objects/fields,full,true
+Security,All Sharing Rules (criteria-based and ownership-based) on in-scope objects,full,true
+Security,All Apex-managed sharing on in-scope objects,full,false
+Metadata,All Custom Settings and Custom Metadata Types referenced in in-scope logic,full,true
+Metadata,All Dependent Picklist relationships involving in-scope fields,full,true
+Metadata,All Formula Fields on in-scope objects that reference other objects,full,true
+Metadata,All Roll-Up Summary Fields on parent objects aggregating in-scope child records,full,true
+Dependencies,All LWC and Aura Components that reference in-scope objects or fields via wire/apex,full,false
+Dependencies,All Visualforce Pages and Controllers referencing in-scope objects,full,false
+Dependencies,All Reports and Report Types built on in-scope objects,summary,false
+Dependencies,All Dashboards using in-scope report data,summary,false
