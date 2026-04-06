@@ -39,3 +39,22 @@ Dependencies,All LWC and Aura Components that reference in-scope objects or fiel
 Dependencies,All Visualforce Pages and Controllers referencing in-scope objects,full,false
 Dependencies,All Reports and Report Types built on in-scope objects,summary,false
 Dependencies,All Dashboards using in-scope report data,summary,false
+GitLab/GitHub,Identify authoritative branch for analysis (main/master/release) — never analyse a feature branch as system baseline,full,true
+GitLab/GitHub,Full recursive folder tree to leaf level — document complete directory structure before any file analysis begins,exhaustive,true
+GitLab/GitHub,All Salesforce metadata files (.cls .trigger .flow .xml .component .page .trigger-meta.xml) across all subdirectories,exhaustive,true
+GitLab/GitHub,All configuration files (.json .yaml .yml) in root and all subdirectories,full,true
+GitLab/GitHub,All deployment scripts and CI/CD pipeline definition files,full,true
+GitLab/GitHub,All open MRs/PRs related to in-scope Jira tickets or Salesforce objects,full,true
+GitLab/GitHub,All merged MRs/PRs touching in-scope files in the last 90 days,full,true
+GitLab/GitHub,All commit messages on in-scope files in the last 90 days — these frequently contain scope decisions not in Jira,full,true
+GitLab/GitHub,All README files at every folder level — often contain undocumented conventions and architecture decisions,full,false
+GitLab/GitHub,All cross-file class and trigger references — if a file references another file follow that reference recursively,exhaustive,true
+Confluence,All Confluence pages linked from any in-scope Jira ticket,exhaustive,true
+Confluence,All child pages of every identified Confluence page — traverse recursively to leaf level,exhaustive,true
+Confluence,All Confluence spaces containing documentation for in-scope Salesforce objects or processes,full,true
+Confluence,All architecture decision records (ADRs) or design documents referencing in-scope objects,full,true
+Confluence,All meeting notes or decision logs referencing in-scope tickets or objects in the last 90 days,full,true
+Confluence,All integration specifications or API documentation for in-scope integration touchpoints,full,true
+Confluence,All release notes or deployment runbooks referencing in-scope objects or tickets,full,true
+Confluence,All process flow diagrams or business process documentation for in-scope Salesforce processes,full,false
+Confluence,All onboarding or training documentation referencing in-scope objects — often reveals undocumented business rules,full,false

@@ -29,6 +29,39 @@ Execute all categories from `documentation-requirements-salesforce.csv` where `m
 ### Jira Traversal Rule
 Retrieve the root ticket. For every ticket retrieved, check for child tickets. Retrieve all children. Repeat until every branch returns zero children. Document the full tree structure before proceeding to any other category.
 
+### GitLab / GitHub Repository Traversal Rule
+When a GitLab or GitHub repository is in scope:
+1. Identify the authoritative branch first — never analyse a feature branch
+   as if it were the system baseline. Ask the user which branch if unclear.
+2. Retrieve the full directory tree to leaf level before opening any file.
+   Document the complete folder structure first. Analyse second. Do not
+   skip subdirectories because they appear to be infrastructure or tooling.
+3. Filter for relevant file types per the CSV rows marked GitLab/GitHub —
+   do not limit analysis to top-level folders.
+4. For every Apex class, trigger, or Flow metadata file found, cross-reference
+   with the Jira ticket tree to confirm whether it is in scope.
+5. Follow all cross-file references recursively — if a class references
+   another class or utility, that referenced file is in scope.
+6. Retrieve all open MRs/PRs and recent commits (90 days) on in-scope files.
+   These frequently contain scope decisions, workarounds, and constraints
+   not captured anywhere in Jira or Confluence.
+
+### Confluence Traversal Rule
+When Confluence is in scope:
+1. Start from all Confluence pages linked directly from in-scope Jira tickets.
+2. For every page found, retrieve all child pages recursively until no further
+   children exist. Do not stop at the first level of children.
+3. Identify all Confluence spaces that contain documentation for in-scope
+   objects or processes — scan the space index, not just linked pages.
+4. Flag any architecture decision record, design document, or integration
+   specification found — these take priority over general documentation.
+5. Retrieve meeting notes and decision logs from the last 90 days referencing
+   in-scope tickets or objects — decisions made in meetings are frequently
+   never reflected in Jira or code.
+6. Note any contradictions between Confluence documentation and what was
+   found in Jira or the codebase — these contradictions are findings,
+   not noise to be ignored.
+
 ### Salesforce Metadata Rule
 For every object or field identified in the Jira tree, traverse all rows in the CSV that reference metadata (Apex, Flows, CPQ, Validation Rules, Integrations, Security, Metadata, Dependencies). Follow every reference recursively — if a Flow calls a subflow, retrieve the subflow. If a trigger calls a handler, retrieve the handler and all its callouts.
 
@@ -44,6 +77,16 @@ Before writing INVESTIGATION.md, verify all of the following are true:
 - [ ] All CPQ rule dependencies traced
 - [ ] All integration mappings (inbound + outbound) documented
 - [ ] All Profile/Permission Set access documented for in-scope fields
+- [ ] Authoritative branch identified (GitLab/GitHub)
+- [ ] Full repository directory tree retrieved to leaf level before file analysis
+- [ ] All in-scope Salesforce metadata file types identified across all subdirectories
+- [ ] All cross-file references followed recursively
+- [ ] All open MRs/PRs and recent commits (90 days) on in-scope files reviewed
+- [ ] All Confluence pages linked from in-scope Jira tickets retrieved
+- [ ] All Confluence child pages traversed recursively to leaf level
+- [ ] All Confluence ADRs and design documents for in-scope objects identified
+- [ ] All Confluence meeting notes and decision logs (90 days) reviewed
+- [ ] Contradictions between Confluence docs and Jira/code flagged as findings
 
 Present this checklist to `{user_name}` and ask for explicit confirmation before writing output.
 
@@ -59,6 +102,13 @@ Salesforce Object Inventory
 [All objects and fields in scope]
 Metadata Dependency Matrix
 [For each object: Apex / Flows / CPQ / Validation Rules / Integrations / Security / Other]
+
+## Repository Analysis
+[Branch analysed / Full folder tree / In-scope files by type / Open MRs and PRs / Recent commits on in-scope files / Cross-file dependency chain]
+
+## Confluence Knowledge Base
+[Pages found / Child page hierarchy / ADRs and design docs / Meeting notes and decisions / Contradictions with Jira or codebase]
+
 Integration Touchpoints
 [All inbound and outbound mappings]
 Open Questions
