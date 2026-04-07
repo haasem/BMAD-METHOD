@@ -67,6 +67,8 @@ class Installer {
 
       await this._setupIdes(config, allModules, paths, addResult);
 
+      await this._copyRootTemplates(paths, addResult);
+
       const restoreResult = await this._restoreUserFiles(paths, updateState);
 
       // Render consolidated summary
@@ -343,6 +345,27 @@ class Installer {
       } else {
         addResult(ide, 'error', setupResult.error || 'failed');
       }
+    }
+  }
+
+  /**
+   * Copy root-level template files to the project root.
+   * Only copies if the target file does not already exist (never overwrites user content).
+   */
+  async _copyRootTemplates(paths, addResult) {
+    const templates = [{ src: 'CLAUDE.md.template', dest: 'CLAUDE.md' }];
+
+    const templateDir = path.join(__dirname, '..', 'templates');
+
+    for (const { src, dest } of templates) {
+      const srcPath = path.join(templateDir, src);
+      const destPath = path.join(paths.projectRoot, dest);
+
+      if (await fs.pathExists(destPath)) continue;
+      if (!(await fs.pathExists(srcPath))) continue;
+
+      await fs.copy(srcPath, destPath);
+      addResult(`Root template: ${dest}`, 'ok', 'created');
     }
   }
 

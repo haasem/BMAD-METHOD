@@ -65,6 +65,20 @@ When Confluence is in scope:
 ### Salesforce Metadata Rule
 For every object or field identified in the Jira tree, traverse all rows in the CSV that reference metadata (Apex, Flows, CPQ, Validation Rules, Integrations, Security, Metadata, Dependencies). Follow every reference recursively — if a Flow calls a subflow, retrieve the subflow. If a trigger calls a handler, retrieve the handler and all its callouts.
 
+### Field Metadata Rule
+For every field referenced in scope, document its **actual field type** 
+(Text, Picklist, Formula, Roll-Up Summary, Lookup, Auto-Number, etc.) 
+and whether it is writable. This is critical because downstream agents 
+will propose solutions that read or write these fields. If the investigation 
+does not record that a field is a formula or read-only, the downstream 
+agent will assume it is writable and propose impossible operations.
+
+In the Salesforce Object Inventory section, each field entry must include:
+- Field API name
+- Field type (e.g., Formula, Picklist, Text, Lookup)
+- Writable: Yes / No / Conditional (explain)
+- For formula fields: the formula expression or a summary of what it computes
+
 ## Completeness Gate
 
 Before writing INVESTIGATION.md, verify all of the following are true:
@@ -76,6 +90,7 @@ Before writing INVESTIGATION.md, verify all of the following are true:
 - [ ] All Flow subflow references resolved
 - [ ] All CPQ rule dependencies traced
 - [ ] All integration mappings (inbound + outbound) documented
+- [ ] All in-scope fields documented with actual field type and writability
 - [ ] All Profile/Permission Set access documented for in-scope fields
 - [ ] Authoritative branch identified (GitLab/GitHub)
 - [ ] Full repository directory tree retrieved to leaf level before file analysis
@@ -117,6 +132,22 @@ Coverage Summary
 [Checklist items completed / total, with notes on any skipped mandatory items]
 
 **No analysis. No recommendations. Facts and references only.**
+
+## Self-Verification Rule
+
+Before finalising INVESTIGATION.md, re-read every factual statement you 
+wrote and verify it against the source you derived it from. Do not verify 
+from memory — re-read the actual source (code, metadata, ticket, page).
+
+This exists because investigation agents systematically write confident 
+statements that are subtly wrong: plausible misreadings, scope errors, 
+conflated objects, or inferred relationships that the source does not 
+actually confirm. These errors propagate into every downstream step and 
+are extremely difficult to catch later because they sit alongside verified 
+facts and use correct terminology.
+
+If you find a statement you cannot re-confirm from the source, either 
+correct it or move it to the Open Questions section.
 
 After writing, inform `{user_name}` that INVESTIGATION.md is ready and that 
 Party Mode will automatically load it as the shared evidence base.

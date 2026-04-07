@@ -1,0 +1,67 @@
+# Client: [Client Name]
+
+## Salesforce Org
+
+- Production Org Alias:
+- Sandbox Org Alias (primary development):
+- Sandbox URL:
+- API Version:
+- Naming Conventions:
+- CPQ Version and Edition:
+- Key Integration Partners:
+
+## Project Scope
+
+- In-scope Objects:
+- Out-of-scope:
+- Known Constraints:
+
+## Standards
+
+- Deployment Process:
+- Branch Naming:
+- Test Coverage Minimum:
+- Code Review Requirements:
+
+## Repository
+
+- Repo URL:
+- Authoritative Branch:
+- Salesforce Metadata Path (e.g. force-app/main/default):
+
+## Jira
+
+- Jira Project Key:
+- Root Epic or Ticket (if applicable):
+
+## Confluence
+
+- Confluence Space Key:
+- Architecture/Design Docs Page:
+
+## Pipeline Order Reference
+
+```
+NEW PROJECT
+install -> CLAUDE.md -> [DR]/[TR] -> [DP] -> [SI] -> Party Mode
+-> SF Adversarial Review -> Advanced Elicitation -> Build
+
+EXISTING PROJECT - NEW TASK
+Update CLAUDE.md -> [SI] (fresh for this ticket) -> Party Mode
+-> SF Adversarial Review -> Advanced Elicitation -> Build
+
+EXISTING PROJECT - CONTINUING SAME TASK
+Check INVESTIGATION.md currency -> update if needed
+-> Party Mode -> SF Adversarial Review -> continue Build
+
+QUICK TASK (bug fix, config change, small story)
+[SI] (scoped tight) -> Party Mode -> SF Adversarial Review -> Build
+```
+
+## Session Notes
+
+<!-- Update this section at the start of each session with any changes since last session -->
+- Last updated:
+- Recent deployments since last session:
+- Scope changes:
+- New constraints or decisions:

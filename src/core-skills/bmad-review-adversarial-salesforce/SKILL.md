@@ -64,12 +64,51 @@ CRITICAL / HIGH / MEDIUM / LOW:
 - **Deployment Risk**: changes requiring specific deployment order, 
   data migration steps, or sandbox validation not mentioned in the proposal
 
-### Step 3 — Assumption Audit
+### Step 3 — Claim Verification (Deep)
 
-Identify every factual claim in the proposal not traceable to a specific 
-item in INVESTIGATION.md. For each:
-- Label it ASSUMPTION
-- Rate it HIGH / MEDIUM / LOW risk
+This is the most critical step. Analysis outputs systematically contain 
+confident statements that do not survive scrutiny. Do not trust any claim 
+just because it sounds plausible.
+
+**For every factual claim in the proposal**, re-read the actual source 
+material (code, metadata, INVESTIGATION.md) and verify:
+
+1. **Does the source actually say this?** Re-read it now — do not verify 
+   from memory. If you cannot find the source, the claim is UNGROUNDED.
+
+2. **Check for these specific error patterns:**
+   - **Informational facts dressed as action items:** Something that happens 
+     automatically (via deployment, CI/CD, existing automation) listed as 
+     requiring human intervention. Ask: "Does someone need to DO this, or 
+     does it happen on its own?"
+   - **Fabricated quantitative estimates:** Numbers (sizes, counts, 
+     percentages) with no source data. Ask: "Where does this number come 
+     from?"
+   - **Incorrect data-access-path claims:** User or process described as 
+     accessing object A when code shows it accesses object B. Ask: "Which 
+     code path does this actually execute?"
+   - **Assumed permission requirements:** Claiming a user needs permission X 
+     without verifying the actual code path. Ask: "What does the code 
+     the user actually runs require?"
+   - **Missing preconditions:** "Without X, Y happens" — but Y requires 
+     additional conditions not mentioned. Ask: "What else must be true?"
+   - **Technically impossible operations:** Proposing a write to a formula 
+     field, rollup summary, auto-number, or system-managed field. Proposing 
+     DML on a non-writable object. Calling a method that doesn't exist. 
+     For EVERY proposed write/update/create: verify the target field's 
+     type and writability in the actual metadata before accepting the claim.
+   - **Solutions that ignore field metadata:** Setting a field to a value 
+     without checking picklist values, field length, type constraints, or 
+     validation rules. Ask: "What are the actual constraints on this field?"
+
+3. **Verdict each claim:**
+   - VERIFIED — source confirms as stated
+   - IMPRECISE — directionally correct but overstated/understated
+   - UNGROUNDED — no source supports this; inferred or fabricated
+   - WRONG — source contradicts this
+   - MISCLASSIFIED — fact may be correct but category is wrong
+
+For each non-VERIFIED claim, rate risk:
   - HIGH: if wrong, solution fails or causes data corruption
   - MEDIUM: if wrong, rework required but data is safe
   - LOW: if wrong, minor adjustment needed
@@ -85,8 +124,10 @@ Each item: category, item name, one-line explanation of why it matters.
 **## 2. Salesforce-Specific Risks**
 By category. Each risk: description + severity rating.
 
-**## 3. Ungrounded Assumptions**
-Each assumption: claim text + risk rating + evidence needed to confirm.
+**## 3. Claim Verification Results**
+Every non-VERIFIED claim: quoted text + verdict (IMPRECISE / UNGROUNDED / 
+WRONG / MISCLASSIFIED) + risk rating + what the source actually shows + 
+what the document should say instead (or whether to remove).
 
 ## Halt Conditions
 
