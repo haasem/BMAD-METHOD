@@ -51,7 +51,7 @@ Before each working session:
 
 Check what exists — scan your planning artifacts folder:
 
-   ls _bmad-output/
+ls _bmad-output/
 Know what research, investigation files, and proposals are already there before invoking any agent.
 
 Update CLAUDE.md if anything has changed — new decisions made, scope changes, constraints discovered. Takes two minutes and saves significant drift across sessions.
@@ -62,17 +62,17 @@ For continuing an in-progress task — if you're continuing work from a previous
 The Complete Order — Quick Reference
 NEW PROJECT
 ─────────────────────────────────────────────
-install → CLAUDE.md → [DR]/[TR] → [DP] → [SI] → Party Mode
+install → CLAUDE.md → [DR]/[TR] → [DP] → [SI] → Party Mode 
 → SF Adversarial Review → [CV] Claim Verification → Advanced Elicitation → Build
 
-EXISTING PROJECT — NEW TASK
+EXISTING PROJECT — NEW TASK  
 ─────────────────────────────────────────────
-Update CLAUDE.md → [SI] (fresh for this ticket) → Party Mode
+Update CLAUDE.md → [SI] (fresh for this ticket) → Party Mode 
 → SF Adversarial Review → [CV] Claim Verification → Advanced Elicitation → Build
 
 EXISTING PROJECT — CONTINUING SAME TASK
 ─────────────────────────────────────────────
-Check INVESTIGATION.md currency → update if needed
+Check INVESTIGATION.md currency → update if needed 
 → Party Mode → SF Adversarial Review → [CV] Claim Verification → continue Build
 
 QUICK TASK (bug fix, config change, small story)
