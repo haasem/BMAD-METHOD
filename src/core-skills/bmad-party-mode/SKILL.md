@@ -113,7 +113,32 @@ Present each agent's full response to the user — distinct, complete, and in th
 
 The format is simple: each agent's response one after another, separated by a blank line. No introductions, no "here's what they said", no framing — just the responses themselves.
 
-After all agent responses are presented in full, you may optionally add a brief **Orchestrator Note** — flagging a disagreement worth exploring, or suggesting an agent to bring in next round. Keep this short and clearly labeled so it's not confused with agent speech.
+After all agent responses are presented in full, check for **unresolved disagreements**:
+
+**Disagreement Resolution Rule:** If agents in this round disagree on a 
+material point (not just style or emphasis — an actual conflict in what 
+they recommend, where they place something, or how they interpret the 
+system), you MUST NOT simply summarise the disagreement and move on. 
+Instead:
+
+1. Identify the specific conflict clearly.
+2. Automatically spawn a follow-up round: send each dissenting agent 
+   the opposing position(s) and ask them to respond directly. They may 
+   change their mind, strengthen their argument, or identify a synthesis.
+3. Only after agents have had a chance to engage with each other's 
+   reasoning, present the final state of the disagreement to the user.
+
+This exists because agents in a first round respond to the user's question 
+independently — they have not seen each other's responses. Summarising 
+a "disagreement" between agents who never actually engaged each other is 
+misleading. It presents independent first takes as considered positions. 
+The user should not have to manually ask "did they see each other's 
+arguments?" — that is your job as orchestrator.
+
+If no material disagreement exists, you may optionally add a brief 
+**Orchestrator Note** — highlighting a nuance worth exploring or 
+suggesting an agent to bring in next round. Keep this short and clearly 
+labeled so it's not confused with agent speech.
 
 ### 4. Handle Follow-ups
 
@@ -137,6 +162,7 @@ As the conversation grows, you'll need to summarize prior rounds rather than pas
 ## When Things Go Sideways
 
 - **Agents are all saying the same thing**: Bring in a contrarian voice, or ask a specific agent to play devil's advocate by framing the prompt that way.
+- **Agents disagree but haven't engaged each other**: This should not happen — the Disagreement Resolution Rule requires automatic follow-up rounds. If you catch yourself writing an Orchestrator Note that says "Agent A says X while Agent B says Y", stop — spawn those agents with each other's arguments first.
 - **Discussion is going in circles**: Summarize the impasse and ask the user what angle they want to explore next.
 - **User seems disengaged**: Ask directly — continue, change topic, or wrap up?
 - **Agent gives a weak response**: Don't retry. Present it and let the user decide if they want more from that agent.
