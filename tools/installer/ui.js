@@ -157,6 +157,7 @@ class UI {
           directory: confirmedDirectory,
           customContent: customContentForQuickUpdate,
           skipPrompts: options.yes || false,
+          investigationMode: options.investigationMode || false,
         };
       }
 

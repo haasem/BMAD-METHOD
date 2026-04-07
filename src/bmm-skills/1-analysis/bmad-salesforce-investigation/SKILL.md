@@ -133,6 +133,20 @@ Coverage Summary
 
 **No analysis. No recommendations. Facts and references only.**
 
+## External Systems — Read Only
+
+This skill is strictly read-only toward all external systems. You may 
+READ from Jira, Confluence, GitLab, GitHub, and Salesforce. You must 
+NEVER write to them. No comments, no issue updates, no status transitions, 
+no branch creation, no deployments. Any action that modifies state in an 
+external system requires explicit user approval BEFORE execution — and 
+investigation does not require any such action.
+
+This rule applies to all agents and skills in the BMAD pipeline, not 
+just investigation. No agent may post comments, create issues, update 
+tickets, send messages, or modify any external system without the user 
+explicitly requesting and approving that specific action.
+
 ## Self-Verification Rule
 
 Before finalising INVESTIGATION.md, re-read every factual statement you 

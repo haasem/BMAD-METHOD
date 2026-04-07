@@ -23,6 +23,7 @@ module.exports = {
     ['--communication-language <lang>', 'Language for agent communication (default: English)'],
     ['--document-output-language <lang>', 'Language for document output (default: English)'],
     ['--output-folder <path>', 'Output folder path relative to project root (default: _bmad-output)'],
+    ['--investigation-mode', 'Enable Investigation Mode for Claude Code (auto-approve read, search, Jira, git tools)'],
     ['-y, --yes', 'Accept all defaults and skip prompts where possible'],
   ],
   action: async (options) => {

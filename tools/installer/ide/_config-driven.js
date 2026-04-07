@@ -118,9 +118,94 @@ class ConfigDrivenIdeSetup {
     results.skills = await this.installVerbatimSkills(projectDir, bmadDir, targetPath, config);
     results.skillDirectories = this.skillWriteTracker.size;
 
+    // Offer investigation mode permissions for IDEs that support it
+    if (config.permissions_template && config.settings_file) {
+      await this.offerPermissionsSetup(projectDir, config, options);
+    }
+
     await this.printSummary(results, target_dir, options);
     this.skillWriteTracker = null;
     return { success: true, results };
+  }
+
+  /**
+   * Offer to install investigation mode permissions.
+   * Writes to settings.local.json (gitignored, per-user) so it doesn't
+   * affect team members. Merges with existing settings if present.
+   * @param {string} projectDir - Project directory
+   * @param {Object} config - Installation configuration with permissions_template and settings_file
+   * @param {Object} options - Setup options
+   */
+  async offerPermissionsSetup(projectDir, config, options) {
+    const settingsPath = path.join(projectDir, config.settings_file);
+    const templatePath = path.join(__dirname, config.permissions_template);
+
+    if (!(await fs.pathExists(templatePath))) return;
+
+    // Check if settings already have BMAD permissions
+    let existingSettings = {};
+    let hasBmadPermissions = false;
+    if (await fs.pathExists(settingsPath)) {
+      try {
+        existingSettings = await fs.readJson(settingsPath);
+        // Check if existing allow list already contains BMAD investigation permissions
+        const existingAllow = existingSettings?.permissions?.allow || [];
+        hasBmadPermissions = existingAllow.some((rule) => rule === 'Agent' || rule === 'Glob' || rule === 'Grep');
+      } catch {
+        existingSettings = {};
+      }
+    }
+
+    // Skip prompt if already configured
+    if (hasBmadPermissions) return;
+
+    // Check for --investigation-mode CLI flag (auto-enable without prompt)
+    let setupPermissions = options.investigationMode || false;
+
+    // Ask user if they want investigation mode (unless already decided via flag or skipPrompts)
+    if (!setupPermissions && !options.skipPrompts) {
+      try {
+        const result = await prompts.confirm({
+          message:
+            'Enable Investigation Mode? (Auto-approves read, search, Jira, and git tools so SI investigations run without permission prompts)',
+        });
+        if (prompts.isCancel(result)) return;
+        setupPermissions = result;
+      } catch {
+        return;
+      }
+    }
+
+    if (!setupPermissions) return;
+
+    try {
+      const template = await fs.readJson(templatePath);
+      // Remove the _comment field
+      delete template._comment;
+
+      // Merge with existing settings (preserve existing rules, add new ones)
+      const merged = { ...existingSettings };
+      if (!merged.permissions) merged.permissions = {};
+
+      // Merge allow rules (deduplicate)
+      const existingAllow = new Set(merged.permissions.allow || []);
+      for (const rule of template.permissions.allow || []) {
+        existingAllow.add(rule);
+      }
+      merged.permissions.allow = [...existingAllow];
+
+      // Merge deny rules (deduplicate)
+      const existingDeny = new Set(merged.permissions.deny || []);
+      for (const rule of template.permissions.deny || []) {
+        existingDeny.add(rule);
+      }
+      merged.permissions.deny = [...existingDeny];
+
+      await fs.writeJson(settingsPath, merged, { spaces: 2 });
+      await prompts.log.success(`Investigation Mode enabled → ${config.settings_file} (gitignored, per-user)`);
+    } catch (error) {
+      await prompts.log.warn(`Could not write permissions: ${error.message}`);
+    }
   }
 
   /**

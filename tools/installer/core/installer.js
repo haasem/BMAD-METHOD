@@ -338,6 +338,8 @@ class Installer {
       const setupResult = await this.ideManager.setup(ide, paths.projectRoot, paths.bmadDir, {
         selectedModules: allModules || [],
         verbose: config.verbose,
+        skipPrompts: config.skipPrompts || false,
+        investigationMode: config.investigationMode || false,
       });
 
       if (setupResult.success) {
@@ -1283,6 +1285,8 @@ class Installer {
       _customModuleSources: customModuleSources,
       _existingModules: installedModules,
       customContent: config.customContent,
+      skipPrompts: config.skipPrompts || false,
+      investigationMode: config.investigationMode || false,
     };
 
     await this.install(installConfig);

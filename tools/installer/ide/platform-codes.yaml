@@ -33,6 +33,8 @@ platforms:
       legacy_targets:
         - .claude/commands
       target_dir: .claude/skills
+      permissions_template: templates/claude-code-permissions.json
+      settings_file: .claude/settings.local.json
 
   cline:
     name: "Cline"

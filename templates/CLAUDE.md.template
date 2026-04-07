@@ -39,6 +39,13 @@
 - Confluence Space Key:
 - Architecture/Design Docs Page:
 
+## External Systems — Read Only by Default
+
+No agent may write to any external system without explicit user approval.
+This includes: Jira comments, issue updates, status transitions, Confluence
+edits, Slack messages, git pushes, deployments, and any other action that
+modifies state outside the local project. Reading is always fine.
+
 ## Pipeline Order Reference
 
 ```

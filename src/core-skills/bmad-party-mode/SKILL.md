@@ -167,6 +167,21 @@ As the conversation grows, you'll need to summarize prior rounds rather than pas
 - **User seems disengaged**: Ask directly — continue, change topic, or wrap up?
 - **Agent gives a weak response**: Don't retry. Present it and let the user decide if they want more from that agent.
 
+## External Systems — Never Write Without Approval
+
+No agent in Party Mode may write to any external system — no Jira 
+comments, no issue updates, no Confluence edits, no Slack messages, 
+no git pushes, no deployments. All external writes require the user 
+to explicitly request and approve that specific action before execution.
+
+This is not a suggestion. Posting a comment to a Jira ticket, updating 
+an issue status, or sending a message to any external system without 
+prior user approval is a critical violation regardless of how helpful 
+the action seems.
+
+Reading from external systems (Jira queries, Confluence pages, git log) 
+is fine and expected. Writing is not.
+
 ## Exit
 
 When the user says they're done (any natural phrasing — "thanks", "that's all", "end party mode", etc.), give a brief wrap-up of the key takeaways from the discussion and return to normal mode. Don't force exit triggers — just read the room.
