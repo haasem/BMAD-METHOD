@@ -42,6 +42,8 @@ Step 7 — Salesforce Adversarial Review
 After Party Mode produces a proposal, run the Salesforce adversarial review passing both the proposal and INVESTIGATION.md. Iterate on the proposal until coverage gaps are resolved.
 Step 7b — Claim Verification
 Run Claim Verification [CV] on any analysis or proposal output before handing it to stakeholders. This is not optional. Analysis agents systematically produce confident statements that do not survive scrutiny — incorrect action items, fabricated estimates, wrong data-access-path claims. The only reliable way to find them is to re-examine every claim against the actual source material. CV does what you would do if you questioned every sentence in the document.
+Step 7c — Independent Verification (high-stakes deliverables)
+For deliverables going to clients under your professional name, run Independent Verification [IV]. This is a second analyst who re-investigates key claims using DIFFERENT methods than the original analyst — different queries, different angles, inverse checks. This catches errors that survive adversarial review because every prior step shares the same blind spots (same evidence, queried the same way). The second analyst does NOT read INVESTIGATION.md before their own verification — they approach fresh and only cross-reference afterward. Skip this for internal working documents; use it for anything a client or stakeholder will see.
 Step 8 — Advanced Elicitation
 Now run Advanced Elicitation — on a proposal that has already been grounded and adversarially reviewed, this is genuinely productive rather than patching upstream gaps.
 
@@ -62,23 +64,26 @@ For continuing an in-progress task — if you're continuing work from a previous
 The Complete Order — Quick Reference
 NEW PROJECT
 ─────────────────────────────────────────────
-install → CLAUDE.md → [DR]/[TR] → [DP] → [SI] → Party Mode 
-→ SF Adversarial Review → [CV] Claim Verification → Advanced Elicitation → Build
+install → CLAUDE.md → [DR]/[TR] → [DP] → [SI] → Party Mode
+→ SF Adversarial Review → [CV] Claim Verification
+→ [IV] Independent Verification (if client-facing) → Advanced Elicitation → Build
 
-EXISTING PROJECT — NEW TASK  
+EXISTING PROJECT — NEW TASK
 ─────────────────────────────────────────────
-Update CLAUDE.md → [SI] (fresh for this ticket) → Party Mode 
-→ SF Adversarial Review → [CV] Claim Verification → Advanced Elicitation → Build
+Update CLAUDE.md → [SI] (fresh for this ticket) → Party Mode
+→ SF Adversarial Review → [CV] Claim Verification
+→ [IV] Independent Verification (if client-facing) → Advanced Elicitation → Build
 
 EXISTING PROJECT — CONTINUING SAME TASK
 ─────────────────────────────────────────────
-Check INVESTIGATION.md currency → update if needed 
-→ Party Mode → SF Adversarial Review → [CV] Claim Verification → continue Build
+Check INVESTIGATION.md currency → update if needed
+→ Party Mode → SF Adversarial Review → [CV] Claim Verification
+→ [IV] if client-facing → continue Build
 
 QUICK TASK (bug fix, config change, small story)
 ─────────────────────────────────────────────
-[SI] (scoped tight) → Party Mode → SF Adversarial Review → [CV] Claim Verification → Build
-Skip [DR]/[TR]/[DP] unless something unexpected surfaces
+[SI] (scoped tight) → Party Mode → SF Adversarial Review → [CV] → Build
+Skip [DR]/[TR]/[DP]/[IV] unless something unexpected surfaces
 
 One Rule to Enforce Above All Others
 Never run Party Mode without a current INVESTIGATION.md for the task in scope. The Investigation Gate will warn you, but it won't stop you if you say yes. The gate is a guardrail, not a lock. The discipline has to come from you.

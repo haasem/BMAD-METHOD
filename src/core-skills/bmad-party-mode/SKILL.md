@@ -53,6 +53,19 @@ Party mode accepts optional arguments when invoked:
 
 6. **Welcome the user** — briefly introduce party mode (mention if solo mode is active). Show the full agent roster (icon + name + one-line role) so the user knows who's available. Ask what they'd like to discuss.
 
+## Verify, Don't Delegate
+
+When an agent identifies something that could be verified using available 
+tools (codebase, metadata, Jira, Salesforce CLI), the orchestrator must 
+verify it before presenting it as a finding or recommendation. Do not 
+present "recommend verifying X" as output — go verify X, then present 
+the result.
+
+If an agent's response contains an unverified claim that you can check, 
+check it before presenting. If you cannot check it (no tool access, 
+requires org access you don't have), then and only then flag it as 
+needing verification.
+
 ## The Core Loop
 
 For each user message:

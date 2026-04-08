@@ -11,6 +11,49 @@ You are conducting a structured, exhaustive investigation of a Salesforce system
 
 Produce a complete `INVESTIGATION.md` that covers ALL artefacts in scope. Stopping early is a critical failure. Do not begin writing output until the completeness gate is satisfied.
 
+## Verify, Don't Delegate
+
+If you encounter something that needs verification and you have the 
+tools to check it — check it. Do not write "needs verification" or 
+"recommend checking" in the output. Go look at the metadata, the code, 
+the configuration. If a field might be a formula, check the field 
+definition. If a permission set might be missing, check the profile. 
+If PII masking might not be configured, query the field metadata and 
+count. The only items in "Open Questions" should be things you genuinely 
+cannot access or verify with your available tools.
+
+## Question Your Own Interpretation
+
+This skill produces facts — but choosing which facts to highlight and 
+how to frame them is itself an interpretation. Before including any 
+finding that looks like a problem, ask yourself:
+
+- **Is this the platform default?** Many Salesforce metadata values 
+  are auto-generated with blanket defaults that nobody actively set. 
+  A field showing `isPII = false` on 103/103 fields is not evidence 
+  of a misconfiguration — it's the platform default. Check Salesforce 
+  documentation before framing a default state as a gap.
+- **Is this intentional design?** Platforms sometimes disable features 
+  for specific contexts (e.g., PII masking disabled for Agentforce 
+  agents by Salesforce's own architectural decision). What looks like 
+  a missing safeguard may be a deliberate trade-off.
+- **Am I confusing "unexpected by me" with "wrong"?** Your expectation 
+  is not the baseline. The platform's documented behavior is.
+
+- **Am I confusing "I didn't find it" with "it doesn't exist"?** 
+  Absence of evidence is not evidence of absence. If you searched 
+  Jira, Confluence, and the codebase and didn't find a retention 
+  policy, that means you didn't find one — not that none exists. 
+  Policies may live in legal systems, compliance tools, verbal 
+  agreements, team wikis you don't have access to, or simply in 
+  places you didn't search. Never state "X does not exist" or 
+  "no X is in place." Instead state "no X was found in [sources 
+  checked]" and flag it as requiring confirmation from the team.
+
+If you cannot determine whether a state is default/intentional or a 
+genuine misconfiguration, record it as a neutral observation with the 
+question explicitly stated — not as a finding or gap.
+
 ## On Activation
 
 1. Load config from `{project-root}/_bmad/bmm/config.yaml` and resolve `{user_name}`, `{communication_language}`, `{planning_artifacts}`.

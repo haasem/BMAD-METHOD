@@ -39,6 +39,17 @@
 - Confluence Space Key:
 - Architecture/Design Docs Page:
 
+## Verify, Don't Delegate
+
+If you can verify something yourself using the tools available to you
+(codebase, metadata, Jira, Confluence, Salesforce CLI), verify it
+immediately. Do not recommend that the user verifies it. Do not list
+it as an open question. Do not propose it as a follow-up task. Go check.
+
+This applies to every agent in the pipeline. Investigation, analysis,
+review — if you have the access to answer a question, answer it.
+Proposing verification instead of doing it is lazy delegation.
+
 ## External Systems — Read Only by Default
 
 No agent may write to any external system without explicit user approval.
@@ -51,18 +62,20 @@ modifies state outside the local project. Reading is always fine.
 ```
 NEW PROJECT
 install -> CLAUDE.md -> [DR]/[TR] -> [DP] -> [SI] -> Party Mode
--> SF Adversarial Review -> [CV] Claim Verification -> Advanced Elicitation -> Build
+-> SF Adversarial Review -> [CV] Claim Verification
+-> [IV] Independent Verification (if client-facing) -> Advanced Elicitation -> Build
 
 EXISTING PROJECT - NEW TASK
 Update CLAUDE.md -> [SI] (fresh for this ticket) -> Party Mode
--> SF Adversarial Review -> [CV] Claim Verification -> Advanced Elicitation -> Build
+-> SF Adversarial Review -> [CV] Claim Verification
+-> [IV] Independent Verification (if client-facing) -> Advanced Elicitation -> Build
 
 EXISTING PROJECT - CONTINUING SAME TASK
 Check INVESTIGATION.md currency -> update if needed
--> Party Mode -> SF Adversarial Review -> [CV] Claim Verification -> continue Build
+-> Party Mode -> SF Adversarial Review -> [CV] -> [IV] if client-facing -> continue Build
 
 QUICK TASK (bug fix, config change, small story)
-[SI] (scoped tight) -> Party Mode -> SF Adversarial Review -> [CV] Claim Verification -> Build
+[SI] (scoped tight) -> Party Mode -> SF Adversarial Review -> [CV] -> Build
 ```
 
 ## Session Notes

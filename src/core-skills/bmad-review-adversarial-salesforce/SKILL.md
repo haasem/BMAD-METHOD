@@ -100,6 +100,17 @@ material (code, metadata, INVESTIGATION.md) and verify:
    - **Solutions that ignore field metadata:** Setting a field to a value 
      without checking picklist values, field length, type constraints, or 
      validation rules. Ask: "What are the actual constraints on this field?"
+   - **Platform defaults mistaken for misconfigurations:** Observing a state 
+     (e.g., "all fields set to X") and concluding it's a problem without 
+     checking if that's the platform default or intentional design. Ask: 
+     "Is this how the platform works by design, or did someone actively 
+     misconfigure this? Check Salesforce documentation before reporting."
+   - **Absence claims stated as facts:** "No retention policy exists" or 
+     "X is not configured" when the agent only checked specific sources. 
+     Absence of evidence is not evidence of absence. Policies may live in 
+     legal systems, compliance tools, or team knowledge the agent cannot 
+     access. Every absence claim must state which sources were checked and 
+     recommend confirmation with the team.
 
 3. **Verdict each claim:**
    - VERIFIED — source confirms as stated

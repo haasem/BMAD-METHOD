@@ -135,6 +135,35 @@ explicitly for each:
    govern it. Ask: "What are the actual constraints on this field,
    and does the proposed value satisfy all of them?"
 
+10. **Lazy delegation of verifiable claims.** The analysis recommends 
+    "verify X" or lists something as "needs checking" when the tools 
+    to verify it are available. If the analysis says "recommend verifying 
+    PII masking" but the agent could have queried field metadata to 
+    check — that's not a recommendation, it's unfinished work. Flag it 
+    as INCOMPLETE and state what tool/query would resolve it.
+
+11. **Correct data, wrong conclusion — platform defaults mistaken for 
+    misconfigurations.** The analysis observes a state (e.g., "0/103 
+    fields marked as PII") and concludes it's a problem, without 
+    checking whether that state is the platform default, intentional 
+    design, or a known platform limitation. Ask: "Is this actually a 
+    misconfiguration, or is this how the platform works by design? 
+    Did anyone actively set this, or is it an auto-generated default?" 
+    Before reporting any finding as a problem, the agent must verify 
+    whether the observed state deviates from the platform's intended 
+    behavior — not just from what the agent expected.
+
+12. **Absence claims stated as facts.** The analysis states "X does not 
+    exist" or "no X is in place" when what it actually knows is "X was 
+    not found in the sources checked." Absence of evidence is not 
+    evidence of absence. Policies, configurations, and agreements may 
+    live in systems the agent didn't search — legal tools, compliance 
+    platforms, verbal agreements, team wikis, or simply Confluence 
+    spaces the agent lacked access to. Any absence claim must be 
+    qualified: "No X was found in [specific sources checked]. Confirm 
+    with the team whether X exists elsewhere." Flag any unqualified 
+    absence claim as IMPRECISE at minimum.
+
 ## Output
 
 For each section of the analysis, produce:
