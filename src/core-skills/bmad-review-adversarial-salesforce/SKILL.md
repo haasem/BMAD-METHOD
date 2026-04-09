@@ -15,12 +15,14 @@ Document errors are secondary.
 
 ## On Activation
 
-1. Check that INVESTIGATION.md exists at `{planning_artifacts}/INVESTIGATION.md`.
+1. Search for investigation files at `{planning_artifacts}/INVESTIGATION*.md`.
    - If NOT found: **HALT immediately.** Display:
-     > "Salesforce Adversarial Review requires INVESTIGATION.md as a completeness 
-     > reference. Run the [SI] Salesforce Investigation skill from Mary first, 
-     > then re-run this review."
-   - Do not proceed without it under any circumstances.
+     > "Salesforce Adversarial Review requires an investigation file as a 
+     > completeness reference. Run the [SI] Salesforce Investigation skill 
+     > from Mary first, then re-run this review."
+   - If multiple found: list them and ask the user which one to use.
+   - If exactly one found: load it.
+   - Do not proceed without an investigation file under any circumstances.
 
 2. Ask the user to provide the Party Mode proposal output to review 
    (or confirm it is already in context).

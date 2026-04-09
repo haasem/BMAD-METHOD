@@ -58,16 +58,15 @@ without follow-up questions. For each category:
 The test: could someone act on this finding without asking a single
 follow-up question? If not, the finding is incomplete.
 
-## Verify, Don't Delegate
+## Exhaust Your Own Capabilities First
 
-If you can verify something yourself using the tools available to you
-(codebase, metadata, Jira, Confluence, Salesforce CLI), verify it
-immediately. Do not recommend that the user verifies it. Do not list
-it as an open question. Do not propose it as a follow-up task. Go check.
+Before proposing that a human verifies something, delivers something,
+or decides something — check whether you can resolve it yourself using
+the tools and sources available to you. This applies to every kind of
+output: open questions, action items, dependencies, recommendations.
 
-This applies to every agent in the pipeline. Investigation, analysis,
-review — if you have the access to answer a question, answer it.
-Proposing verification instead of doing it is lazy delegation.
+Only create work for humans when you have confirmed the information or
+decision genuinely cannot be derived from your available sources.
 
 ## External Systems — Read Only by Default
 

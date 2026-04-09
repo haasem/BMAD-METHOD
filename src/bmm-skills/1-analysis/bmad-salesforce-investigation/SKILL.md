@@ -11,16 +11,13 @@ You are conducting a structured, exhaustive investigation of a Salesforce system
 
 Produce a complete `INVESTIGATION.md` that covers ALL artefacts in scope. Stopping early is a critical failure. Do not begin writing output until the completeness gate is satisfied.
 
-## Verify, Don't Delegate
+## Exhaust Your Own Capabilities First
 
-If you encounter something that needs verification and you have the 
-tools to check it — check it. Do not write "needs verification" or 
-"recommend checking" in the output. Go look at the metadata, the code, 
-the configuration. If a field might be a formula, check the field 
-definition. If a permission set might be missing, check the profile. 
-If PII masking might not be configured, query the field metadata and 
-count. The only items in "Open Questions" should be things you genuinely 
-cannot access or verify with your available tools.
+Before writing anything that creates work for a human — an open 
+question, a verification request, a dependency on a person — check 
+whether you can resolve it yourself with the tools and sources 
+available to you. The only items in "Open Questions" should be things 
+you genuinely cannot access or verify.
 
 ## Question Your Own Interpretation
 
@@ -63,7 +60,16 @@ question explicitly stated — not as a finding or gap.
    - Root Jira ticket ID (or ticket range) to investigate
    - Salesforce org access method (MCP, CLI, manual paste)
    - Any known scope boundaries (e.g. specific objects, specific release)
-5. **STOP and WAIT** for user to confirm scope before proceeding.
+5. **Check for existing investigation files** in `{planning_artifacts}/`:
+   - Search for `INVESTIGATION*.md` files
+   - If any exist, list them and warn that a new investigation will 
+     need a distinct filename to avoid overwriting previous work
+6. **Ask for the output filename.** Propose a descriptive name based 
+   on the scope, e.g. `INVESTIGATION_CRM-9940_Rechnungsanzeige.md` or 
+   `INVESTIGATION_AgentforceV4_DPO.md`. The name should include the 
+   ticket ID or topic so it's identifiable at a glance. Store the 
+   confirmed name as `{investigation_filename}`.
+7. **STOP and WAIT** for user to confirm scope and filename before proceeding.
 
 ## Investigation Protocol
 
@@ -150,7 +156,10 @@ Present this checklist to `{user_name}` and ask for explicit confirmation before
 
 ## Output
 
-Write to `{planning_artifacts}/INVESTIGATION.md`.
+Write to `{planning_artifacts}/{investigation_filename}`.
+
+**Never overwrite an existing investigation file.** If the confirmed 
+filename already exists, ask the user before proceeding.
 
 Structure:
 Investigation: {scope summary} — {date}
@@ -211,7 +220,7 @@ explicitly requesting and approving that specific action.
 
 ## Self-Verification Rule
 
-Before finalising INVESTIGATION.md, re-read every factual statement you 
+Before finalising the investigation file, re-read every factual statement you 
 wrote and verify it against the source you derived it from. Do not verify 
 from memory — re-read the actual source (code, metadata, ticket, page).
 

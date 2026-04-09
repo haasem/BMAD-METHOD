@@ -135,34 +135,23 @@ explicitly for each:
    govern it. Ask: "What are the actual constraints on this field,
    and does the proposed value satisfy all of them?"
 
-10. **Lazy delegation of verifiable claims.** The analysis recommends 
-    "verify X" or lists something as "needs checking" when the tools 
-    to verify it are available. If the analysis says "recommend verifying 
-    PII masking" but the agent could have queried field metadata to 
-    check — that's not a recommendation, it's unfinished work. Flag it 
-    as INCOMPLETE and state what tool/query would resolve it.
+10. **Work left for humans that the agent could have done.** Any 
+    open question, verification request, or dependency on a person 
+    where the agent had the tools to resolve it itself. Ask: "Could 
+    the agent have answered this from available sources?" If yes, 
+    flag as INCOMPLETE.
 
-11. **Correct data, wrong conclusion — platform defaults mistaken for 
-    misconfigurations.** The analysis observes a state (e.g., "0/103 
-    fields marked as PII") and concludes it's a problem, without 
-    checking whether that state is the platform default, intentional 
-    design, or a known platform limitation. Ask: "Is this actually a 
-    misconfiguration, or is this how the platform works by design? 
-    Did anyone actively set this, or is it an auto-generated default?" 
-    Before reporting any finding as a problem, the agent must verify 
-    whether the observed state deviates from the platform's intended 
-    behavior — not just from what the agent expected.
+11. **Correct data, wrong conclusion.** The analysis observes a state 
+    and concludes it's a problem without checking whether it's the 
+    platform default, intentional design, or a known limitation. 
+    Ask: "Is this actually a misconfiguration, or is this how the 
+    platform works by design?"
 
-12. **Absence claims stated as facts.** The analysis states "X does not 
-    exist" or "no X is in place" when what it actually knows is "X was 
-    not found in the sources checked." Absence of evidence is not 
-    evidence of absence. Policies, configurations, and agreements may 
-    live in systems the agent didn't search — legal tools, compliance 
-    platforms, verbal agreements, team wikis, or simply Confluence 
-    spaces the agent lacked access to. Any absence claim must be 
-    qualified: "No X was found in [specific sources checked]. Confirm 
-    with the team whether X exists elsewhere." Flag any unqualified 
-    absence claim as IMPRECISE at minimum.
+12. **Absence claims stated as facts.** "X does not exist" when the 
+    agent only knows "X was not found in the sources I checked." 
+    Absence of evidence is not evidence of absence. Any absence 
+    claim must state which sources were checked and recommend team 
+    confirmation. Flag unqualified absence claims as IMPRECISE.
 
 ## Output
 

@@ -30,21 +30,30 @@ Party mode accepts optional arguments when invoked:
 
 4. **Load project context** — search for `**/project-context.md`. If found, hold it as background context that gets passed to agents when relevant.
 
-5. **Investigation Gate** — search for `{planning_artifacts}/INVESTIGATION.md`. Also try `**/INVESTIGATION.md` as a fallback.
+5. **Investigation Gate** — search for investigation files:
+   - First search `{planning_artifacts}/INVESTIGATION*.md`
+   - Fallback: `**/INVESTIGATION*.md`
 
-   **If found:**
+   **If exactly one found:**
    - Load its full contents as `{investigation_data}`
    - Display to user:
-     > "📋 **Investigation file found and loaded.** All agents will ground their analysis in this evidence base. Claims not traceable to the investigation will be labelled **[ASSUMPTION]**."
+     > "📋 **Investigation file loaded: {filename}.** All agents will ground their analysis in this evidence base. Claims not traceable to the investigation will be labelled **[ASSUMPTION]**."
+
+   **If multiple found:**
+   - List all found files with their names and modification dates
+   - Ask the user which investigation file to use for this session
+   - Load the selected file as `{investigation_data}`
+
+   **After loading (single or selected):**
    - Add the following to the subagent prompt template under a new section `## Evidence Base`:
      > "The following is the complete investigation of the system under discussion. All factual claims you make must be traceable to a specific item in this evidence base. If a claim is not supported here, prefix it with **[ASSUMPTION]** and state what evidence would be needed to confirm it. Do not present assumptions as findings."
      > {investigation_data — summarised to under 600 words if over 1000 words}
 
-   **If NOT found:**
+   **If none found:**
    - Display this warning and wait for user response before proceeding:
-     > ⚠️ **No INVESTIGATION.md found.**
+     > ⚠️ **No investigation files found.**
      > For Salesforce analysis or development tasks, running Party Mode without prior investigation risks incomplete and inconsistent outcomes — each agent will scope their own context independently and may miss dependencies.
-     > **Recommended:** Ask Mary to run **[SI] Salesforce Investigation** first. This produces INVESTIGATION.md which all agents will share as a common evidence base.
+     > **Recommended:** Ask Mary to run **[SI] Salesforce Investigation** first.
      > **Options:**
      > 1. Exit now and run Salesforce Investigation first *(recommended for Salesforce tasks)*
      > 2. Proceed without investigation file *(agent outputs will be based on unverified scope)*
@@ -53,18 +62,13 @@ Party mode accepts optional arguments when invoked:
 
 6. **Welcome the user** — briefly introduce party mode (mention if solo mode is active). Show the full agent roster (icon + name + one-line role) so the user knows who's available. Ask what they'd like to discuss.
 
-## Verify, Don't Delegate
+## Exhaust Your Own Capabilities First
 
-When an agent identifies something that could be verified using available 
-tools (codebase, metadata, Jira, Salesforce CLI), the orchestrator must 
-verify it before presenting it as a finding or recommendation. Do not 
-present "recommend verifying X" as output — go verify X, then present 
-the result.
-
-If an agent's response contains an unverified claim that you can check, 
-check it before presenting. If you cannot check it (no tool access, 
-requires org access you don't have), then and only then flag it as 
-needing verification.
+Before presenting anything that creates work for a human — a 
+verification request, a dependency on a person, an open question — 
+check whether you can resolve it with available tools. If an agent's 
+response contains an unverified claim you can check, check it before 
+presenting.
 
 ## The Core Loop
 
