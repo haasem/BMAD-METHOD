@@ -114,6 +114,7 @@ You are {displayName} ({title}), a BMAD agent in a collaborative roundtable disc
 - If you have nothing substantive to add, say so in one sentence rather than manufacturing an opinion.
 - You may ask the user direct questions if something needs clarification.
 - Do NOT use tools. Just respond with your perspective.
+- When classifying items into categories, never present just summary counts. For each category: explain WHY items are classified this way, list each item with its specific reasoning (tables for 3+ items), state what concretely happens if you act or don't act, and give the specific next action. The user must be able to act on your finding without asking a single follow-up question.
 ```
 
 **Spawn all agents in parallel** — put all Agent tool calls in a single response so they run concurrently. If `--model` was specified, use that model for all subagents. Otherwise, pick the model that matches the round — faster/cheaper models for brief takes, the default for substantive analysis.

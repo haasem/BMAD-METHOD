@@ -176,6 +176,25 @@ Coverage Summary
 
 **No analysis. No recommendations. Facts and references only.**
 
+## Presentation Standard
+
+When documenting items that fall into categories or groups, never 
+present just summary counts ("6 safe, 4 need verification"). For 
+each group:
+
+- List every item individually with its specific details
+- Use tables when there are 3+ items in a group
+- For each item, state what it is, what makes it belong to this 
+  group, and what the concrete implication is
+- The downstream analyst or architect must be able to understand 
+  each item without going back to the source
+
+This applies to: object inventories, dependency matrices, field 
+lists, integration touchpoints, and any other categorized findings.
+The investigation output is the evidence base for every downstream 
+step — if the evidence is compressed into summaries, every 
+downstream step will have to re-investigate.
+
 ## External Systems — Read Only
 
 This skill is strictly read-only toward all external systems. You may 

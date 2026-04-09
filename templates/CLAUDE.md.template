@@ -39,6 +39,25 @@
 - Confluence Space Key:
 - Architecture/Design Docs Page:
 
+## Findings Presentation Standard
+
+When presenting findings that classify items into categories (e.g.,
+"6 safe, 4 need verification, 2 not removable"), never present just
+the summary counts. Every finding must be immediately actionable
+without follow-up questions. For each category:
+
+1. **Explain WHY** items are in this category — the classification
+   criterion, not just the label
+2. **List each item** with its specific reasoning (use tables for
+   3+ items)
+3. **State the concrete consequence** of acting or not acting on each
+   item — what breaks, what changes, what happens
+4. **Give the specific next action** — not "verify this" but exactly
+   what to verify, how, and who should do it
+
+The test: could someone act on this finding without asking a single
+follow-up question? If not, the finding is incomplete.
+
 ## Verify, Don't Delegate
 
 If you can verify something yourself using the tools available to you
