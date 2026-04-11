@@ -1,0 +1,103 @@
+# Task Orchestrator State
+# Written by bmad-task-orchestrator — do not edit manually during execution
+
+task_id: ""
+task_description: ""
+task_type: "" # investigation-only | analysis-proposal | full-end-to-end
+client_facing: false
+created: ""
+last_updated: ""
+analysis_folder: ""
+
+# Current execution state
+current_phase: "intake"
+phase_status: "pending" # pending | in-progress | completed | failed | awaiting-approval
+halt_reason: ""
+
+# Phase completion record
+phases:
+  intake:
+    status: pending
+    started: null
+    completed: null
+    artifacts: []
+
+  investigate:
+    status: pending
+    started: null
+    completed: null
+    artifacts: []
+    skill_used: "bmad-salesforce-investigation"
+
+  analyze:
+    status: pending
+    started: null
+    completed: null
+    artifacts: []
+    skills_used: []
+    analyze_iteration: 0
+    quality_gate:
+      passed: null
+      critical_findings: 0
+      high_findings: 0
+      ungrounded_claims: 0
+      wrong_claims: 0
+      contradicted_claims: 0
+
+  implement:
+    status: pending
+    started: null
+    completed: null
+    artifacts: []
+    skill_used: ""
+    route: "" # quick-dev | dev-story
+    baseline_commit: ""
+    spec_file: ""
+
+  qa:
+    status: pending
+    started: null
+    completed: null
+    artifacts: []
+    skill_used: "bmad-code-review"
+    iteration: 0
+    max_iterations: 3
+    quality_gate:
+      passed: null
+      blockers: 0
+      high_findings: 0
+
+  deliver:
+    status: pending
+    started: null
+    completed: null
+    artifacts: []
+
+# Checkpoint configuration
+checkpoints:
+  after_investigate: false
+  after_analyze: true
+  after_implement: false
+  after_qa_pass: true
+  before_external_write: true # Always on, cannot be disabled
+
+# Quality gate thresholds
+quality_gates:
+  analyze:
+    max_critical: 0
+    max_high: 3
+    max_ungrounded: 5
+    max_wrong: 0
+  qa:
+    max_iterations: 3
+    max_blockers: 0
+    max_high_after_fix: 2
+
+# QA loop history
+qa_iterations: []
+# Each entry:
+#   iteration: 1
+#   findings_count: 5
+#   finding_types: {intent_gap: 0, bad_spec: 1, patch: 3, defer: 1, reject: 0}
+#   action: "auto-retry"
+#   resolved: ["patch-1", "patch-2", "patch-3", "bad_spec-1"]

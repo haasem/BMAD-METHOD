@@ -58,3 +58,8 @@ Confluence,All integration specifications or API documentation for in-scope inte
 Confluence,All release notes or deployment runbooks referencing in-scope objects or tickets,full,true
 Confluence,All process flow diagrams or business process documentation for in-scope Salesforce processes,full,false
 Confluence,All onboarding or training documentation referencing in-scope objects — often reveals undocumented business rules,full,false
+Platform Documentation,Official Salesforce documentation for every feature and configuration identified in scope — verify platform defaults and intended behavior,full,true
+Platform Documentation,Salesforce Release Notes for the org API version — check for feature changes and deprecations,full,true
+Platform Documentation,Salesforce Known Issues for all in-scope features — check if observed behavior is a known bug or limitation,full,true
+Platform Documentation,Trailhead and Developer Documentation for implementation patterns and platform constraints relevant to in-scope features,full,false
+Platform Documentation,Salesforce Community and Stack Exchange for real-world experiences and edge cases with in-scope features,summary,false

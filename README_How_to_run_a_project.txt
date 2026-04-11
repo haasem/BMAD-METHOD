@@ -85,6 +85,13 @@ QUICK TASK (bug fix, config change, small story)
 [SI] (scoped tight) → Party Mode → SF Adversarial Review → [CV] → Build
 Skip [DR]/[TR]/[DP]/[IV] unless something unexpected surfaces
 
+AUTONOMOUS MODE (Task Orchestrator)
+─────────────────────────────────────────────
+[TO] Task Orchestrator — chains all skills autonomously with
+configurable human checkpoints and quality gates.
+Replaces manual invocation of [SI] → Party Mode → Reviews → Build → QA.
+Three task types: investigation-only, analysis + proposal, full end-to-end.
+
 One Rule to Enforce Above All Others
 Never run Party Mode without a current INVESTIGATION.md for the task in scope. The Investigation Gate will warn you, but it won't stop you if you say yes. The gate is a guardrail, not a lock. The discipline has to come from you.
 Everything else in the pipeline is additive — you can skip [DR] on a simple bug fix, you can skip [DP] if the org is well-documented. But [SI] before Party Mode is the one step that cannot be skipped without directly causing the problem you've been experiencing.

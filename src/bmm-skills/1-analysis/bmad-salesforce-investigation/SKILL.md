@@ -112,6 +112,35 @@ When Confluence is in scope:
    found in Jira or the codebase — these contradictions are findings,
    not noise to be ignored.
 
+### Platform Documentation Research Rule
+For every Salesforce feature, configuration, or behavior identified during 
+investigation, research the official platform documentation to understand 
+how it works by design. This is mandatory — not optional background reading.
+
+Sources to check (use WebFetch and WebSearch):
+1. **Salesforce Help & Documentation** — official feature documentation 
+   for the specific API version in use
+2. **Salesforce Release Notes** — for the org's API version and recent 
+   releases. Features change between releases.
+3. **Salesforce Known Issues** — check if observed behavior is a known 
+   bug or limitation
+4. **Trailhead / Developer Documentation** — for implementation patterns 
+   and platform constraints
+5. **Salesforce Community / Stack Exchange** — for real-world experiences 
+   with the feature, especially edge cases and gotchas
+
+This research must happen DURING investigation, not after. If you find a 
+metadata value that looks unusual, a feature that appears misconfigured, 
+or a behavior you don't fully understand — research it immediately before 
+recording it as a finding. The PII masking example is instructive: 
+`isPII = false` on all fields looked like a misconfiguration but was 
+actually the platform default with masking deliberately disabled for 
+Agentforce agents. Only platform documentation research would reveal this.
+
+Document all platform documentation findings in a dedicated section of 
+INVESTIGATION.md: "Platform Documentation Research" — with source URLs, 
+API version relevance, and how each finding affects the investigation scope.
+
 ### Salesforce Metadata Rule
 For every object or field identified in the Jira tree, traverse all rows in the CSV that reference metadata (Apex, Flows, CPQ, Validation Rules, Integrations, Security, Metadata, Dependencies). Follow every reference recursively — if a Flow calls a subflow, retrieve the subflow. If a trigger calls a handler, retrieve the handler and all its callouts.
 
@@ -152,6 +181,9 @@ Before writing INVESTIGATION.md, verify all of the following are true:
 - [ ] All Confluence ADRs and design documents for in-scope objects identified
 - [ ] All Confluence meeting notes and decision logs (90 days) reviewed
 - [ ] Contradictions between Confluence docs and Jira/code flagged as findings
+- [ ] Platform documentation researched for all in-scope features and configurations
+- [ ] Salesforce Known Issues checked for all in-scope features
+- [ ] Any unusual metadata values verified against platform documentation before being flagged as findings
 
 Present this checklist to `{user_name}` and ask for explicit confirmation before writing output.
 
@@ -173,6 +205,9 @@ Metadata Dependency Matrix
 
 ## Confluence Knowledge Base
 [Pages found / Child page hierarchy / ADRs and design docs / Meeting notes and decisions / Contradictions with Jira or codebase]
+
+## Platform Documentation Research
+[For each feature/configuration researched: source URL, API version relevance, key finding, how it affects the investigation. Include Salesforce Help, Release Notes, Known Issues, and community sources checked.]
 
 Integration Touchpoints
 [All inbound and outbound mappings]
