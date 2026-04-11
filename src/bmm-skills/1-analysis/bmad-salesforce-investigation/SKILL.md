@@ -60,16 +60,17 @@ question explicitly stated — not as a finding or gap.
    - Root Jira ticket ID (or ticket range) to investigate
    - Salesforce org access method (MCP, CLI, manual paste)
    - Any known scope boundaries (e.g. specific objects, specific release)
-5. **Check for existing investigation files** in `{planning_artifacts}/`:
-   - Search for `INVESTIGATION*.md` files
-   - If any exist, list them and warn that a new investigation will 
-     need a distinct filename to avoid overwriting previous work
-6. **Ask for the output filename.** Propose a descriptive name based 
-   on the scope, e.g. `INVESTIGATION_CRM-9940_Rechnungsanzeige.md` or 
-   `INVESTIGATION_AgentforceV4_DPO.md`. The name should include the 
-   ticket ID or topic so it's identifiable at a glance. Store the 
-   confirmed name as `{investigation_filename}`.
-7. **STOP and WAIT** for user to confirm scope and filename before proceeding.
+5. **Set up the analysis folder.** Each analysis gets its own subfolder 
+   under `{planning_artifacts}/` to keep all related artifacts together.
+   - Propose a folder name based on the scope, e.g. 
+     `CRM-9940_Rechnungsanzeige` or `AgentforceV4_DPO`. Format: 
+     `{ticket-id}_{short-topic}` — concise, identifiable at a glance.
+   - List existing analysis folders in `{planning_artifacts}/` so the 
+     user sees what already exists.
+   - If a folder with the proposed name already exists, warn that 
+     continuing will overwrite the existing investigation.
+   - Store the confirmed path as `{analysis_folder}`.
+6. **STOP and WAIT** for user to confirm scope and folder name before proceeding.
 
 ## Investigation Protocol
 
@@ -156,10 +157,7 @@ Present this checklist to `{user_name}` and ask for explicit confirmation before
 
 ## Output
 
-Write to `{planning_artifacts}/{investigation_filename}`.
-
-**Never overwrite an existing investigation file.** If the confirmed 
-filename already exists, ask the user before proceeding.
+Write to `{analysis_folder}/INVESTIGATION.md`.
 
 Structure:
 Investigation: {scope summary} — {date}
@@ -234,5 +232,7 @@ facts and use correct terminology.
 If you find a statement you cannot re-confirm from the source, either 
 correct it or move it to the Open Questions section.
 
-After writing, inform `{user_name}` that INVESTIGATION.md is ready and that 
-Party Mode will automatically load it as the shared evidence base.
+After writing, inform `{user_name}` that `{analysis_folder}/INVESTIGATION.md` 
+is ready. All downstream skills (Party Mode, Adversarial Review, Claim 
+Verification, Independent Verification) will search for investigation 
+files and let the user select which one to use.

@@ -31,18 +31,22 @@ Party mode accepts optional arguments when invoked:
 4. **Load project context** — search for `**/project-context.md`. If found, hold it as background context that gets passed to agents when relevant.
 
 5. **Investigation Gate** — search for investigation files:
-   - First search `{planning_artifacts}/INVESTIGATION*.md`
+   - Search `{planning_artifacts}/**/INVESTIGATION.md` (analysis subfolders)
+   - Also search `{planning_artifacts}/INVESTIGATION*.md` (legacy flat files)
    - Fallback: `**/INVESTIGATION*.md`
 
    **If exactly one found:**
    - Load its full contents as `{investigation_data}`
+   - Note the analysis folder it came from as `{analysis_folder}`
    - Display to user:
-     > "📋 **Investigation file loaded: {filename}.** All agents will ground their analysis in this evidence base. Claims not traceable to the investigation will be labelled **[ASSUMPTION]**."
+     > "📋 **Investigation loaded: {analysis_folder}/INVESTIGATION.md.** All agents will ground their analysis in this evidence base. Claims not traceable to the investigation will be labelled **[ASSUMPTION]**."
 
    **If multiple found:**
-   - List all found files with their names and modification dates
-   - Ask the user which investigation file to use for this session
+   - List all found files grouped by analysis folder, with modification dates
+   - Ask the user which investigation to use for this session
    - Load the selected file as `{investigation_data}`
+   - Note its folder as `{analysis_folder}` — all output for this session 
+     should go into the same analysis folder
 
    **After loading (single or selected):**
    - Add the following to the subagent prompt template under a new section `## Evidence Base`:
