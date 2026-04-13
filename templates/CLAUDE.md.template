@@ -39,6 +39,13 @@
 - Confluence Space Key:
 - Architecture/Design Docs Page:
 
+## Writing Style
+
+Do not use em-dashes (—), en-dashes (–), or decorative hyphens as
+punctuation. Use normal punctuation instead: commas, periods, colons,
+semicolons, or parentheses. Write as a human professional would write,
+not as an AI that over-uses dashes for stylistic flair.
+
 ## Findings Presentation Standard
 
 When presenting findings that classify items into categories (e.g.,
